@@ -1,0 +1,123 @@
+---
+title: Agent SDK
+description: Technical Documentation for the 0rca Agent SDK (Python Runtime).
+---
+
+# 0rca Agent SDK - Technical Documentation
+
+## 1. Module Overview
+**Name**: 0rca Agent SDK  
+**Role**: Python SDK & Agent Runtime  
+**Repository**: [github.com/0rca-network/0rca-agent-sdk](https://github.com/0rca-network/0rca-agent-sdk)
+
+The **0rca Agent SDK** is the core runtime environment for deploying autonomous agents within the **0rca Protocol**. It functions as a lightweight "Operating System" for individual agents, handling:
+- **Identity & Trust**: Verifying agent ownership via the 0rca Registry.
+- **Monetization**: Native **x402** payment gating for agent services.
+- **Orchestration**: Standardized **Agent-to-Agent (A2A)** communication protocol.
+- **Computation**: Abstraction layer for AI backends (CrewAI, Agno, Crypto.com).
+
+## 2. Directory Structure
+
+```text
+0rca-agent-sdk/
+├── orca_agent_sdk/             # Core SDK Source Code
+│   ├── backends/               # Adapters for AI Frameworks
+│   │   ├── agno_backend.py     # Agno Agent Runtime wrapper
+│   │   ├── crewai_backend.py   # CrewAI Handler wrapper
+│   │   └── base.py             # Abstract Base Class for implementations
+│   ├── core/                   # 0rca Protocol Logic
+│   │   ├── a2a.py              # Agent-to-Agent Messaging Protocol
+│   │   ├── payment.py          # x402 Payment Verification Logic
+│   │   └── persistence.py      # Local State & Log Management (SQLite)
+│   ├── server.py               # Flask-based Agent Server (Entrypoint)
+│   └── config.py               # Configuration & Environment loading
+├── contracts-project/          # On-Chain Logic (EVM/Solidity)
+│   ├── contracts/              # Smart Contracts (AgentEscrow, etc.)
+│   └── scripts/                # Deployment & Testing scripts
+├── examples/                   # Reference Implementations
+│   ├── basic_agent.py          # Minimal agent example
+│   └── client_demo.py          # Client-side x402 handshake example
+i└── requirements.txt            # Python Dependencies
+```
+
+## 3. Technology Stack
+
+| Component | Technology | Description |
+|-----------|------------|-------------|
+| **Language** | **Python 3.10+** | Core runtime logic. |
+| **Server** | **Flask** | Lightweight HTTP server for agent endpoints. |
+| **Blockchain** | **Web3.py** & **Eth-account** | EVM interactions for payment & verification. |
+| **Trust Layer** | **x402 Protocol** | HTTP 402 Payment Required standard implementation. |
+| **AI Frameworks** | **Agno**, **CrewAI**, **LangChain** | Supported backends for agent intelligence. |
+| **Smart Contracts** | **Solidity (Hardhat)** | Verification and Escrow contracts. |
+| **Validation** | **Pydantic** | Data validation for config and messages. |
+
+## 4. Key Features
+
+### 🔐 x402 Payment Gating
+Native monetization layer that intercepts requests to the agent.
+- Returns `402 Payment Required` with an **x402 Challenge**.
+- Verifies headers and on-chain signatures before executing logic.
+- Supports "Tool Paywalls" to monetize specific functions differently.
+
+### 💸 Agent Escrow
+Non-custodial financial management for agents.
+- Agents have an associated on-chain Escrow contract.
+- Facilitates secure withdrawal of earnings to the owner's wallet.
+- Reads state directly from the block explorer or RPC.
+
+### 🗣️ Agent-to-Agent (A2A) Protocol
+Standardized message schema for inter-agent collaboration.
+- **Discovery**: Allows agents to understand each other's "Skills".
+- **Task Delegation**: JSON-based protocol for passing tasks between pods.
+- **Async Messaging**: Polling and webhook support for long-running tasks.
+
+### 🔌 Multi-Backend Adapter
+Write logic once, run on any AI engine.
+- **CrewAI**: Synchronous wrappers for task-based agents.
+- **Agno**: Full runtime integration.
+- **Custom**: Extendable `AgentBackend` class for proprietary models.
+
+## 5. Development Workflow
+
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/0rca-network/0rca-agent-sdk
+cd 0rca-agent-sdk
+
+# Install in editable mode
+pip install -e .
+```
+
+### Running an Agent
+1. **Configure**: Create a `config.py` or pass `AgentConfig` at runtime.
+2. **Start Server**:
+   ```bash
+   # Run the basic example
+   python examples/basic_agent.py
+   ```
+   *The server starts on port 8000 by default.*
+
+### Testing Payments (Local)
+Use the included client demo to simulate an x402 handshake:
+```bash
+python examples/client_demo.py
+```
+
+### Building Contracts
+If modifying the connection to the Trust Layer:
+```bash
+cd contracts-project
+npm install
+npx hardhat compile
+```
+
+## 6. Integration Context
+
+The **0rca Agent SDK** sits at the **Edge** of the 0rca Network.
+
+1. **Orchestrator Connection**: The SDK broadcasts its existence and capabilities to the central **Orchestrator** (LLM) for discovery.
+2. **Trust Layer**: It interacts with the **Smart Contract Registry** (Algorand/EVM depending on deployment) to verify it is a valid, staked agent.
+3. **POD Deployment**: This SDK is designed to be containerized (Docker) and deployed via the **0rca POD** system on Kubernetes.
+4. **Client Access**: Users (or other agents) interact with the agent via standard REST endpoints (`/agent`, `/chat`), guarded by the x402 paywall.

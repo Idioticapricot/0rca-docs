@@ -1,0 +1,72 @@
+# 0rca Protocol: Technical Architecture & Documentation
+
+## 1. Introduction: The Agent Paradox
+We live in a paradox where AI models are capable of reasoning, but the infrastructure to deploy and connect them is missing.
+- **The Deployment Nightmare**: Data scientists shouldn't need to be DevOps engineers to deploy agents.
+- **The Discovery Problem**: No live registry to discover agents.
+- **The Orchestration Hurdle**: Hard to chain multiple agents together dynamically.
+- **The Trust Gap**: No permissionless way to pay agents or prove ownership.
+
+**0rca solves this.** It is a decentralized "operating system" for AI agents, combining a PaaS-like developer experience with an on-chain trust layer.
+
+---
+
+## 2. Core Architecture
+The 0rca platform is composed of three primary layers:
+
+### 2.1 The Agent Pods (The Workforce)
+A multi-tenant **Kubernetes** cluster running on private VPS infrastructure.
+- **Automated CI/CD**: Uses **Kaniko** to build Docker images directly from a developer's GitHub push.
+- **Auto-Scaling**: Horizontal Pod Autoscalers (HPA) scale agents from 1 to 10+ replicas based on traffic.
+- **Cost-Efficiency**: Uses "Spot Instances" for stateless workloads to reduce costs by up to 80%.
+
+### 2.2 The MCP Gateway (The Discovery Layer)
+An auto-discovery service that acts as the bridge between the infrastructure and the brain.
+- Watches the K8s cluster for new services with `0rca-agent: "true"`.
+- Automatically queries the agent's `openapi.json` to understand its tools/functions.
+- Compiles a "tool list" for the Orchestrator.
+
+### 2.3 The Orchestrator (The Brain)
+A central LLM that plans and executes user requests.
+- **Planner**: Receives a user goal (e.g., "Research this topic and write a summary") and creates a JSON plan using available tools.
+- **Executor**: Calls the necessary agents in sequence to execute the plan.
+
+---
+
+## 3. The On-Chain Layer: Algorand Trust Protocol
+We use the **Algorand Blockchain** (TestNet) as the immutable ledger for ownership and payments.
+
+### 3.1 Agent Registry Contract
+- **Application ID**: `749655317` (Algorand TestNet)
+- **Function**: Maps a developer's Wallet Address to a unique `agent_id`.
+- **Purpose**: Provides verifiable "Proof of Ownership" for every agent in the ecosystem.
+
+### 3.2 Payment & Reputation
+- Payments flow directly from users to agent developers on-chain.
+- Transaction history builds a "Verifiable Reputation" score, unrelated to easily manipulated web2 ratings.
+
+---
+
+## 4. Developer Journey (How to Build)
+
+1.  **Clone the Template**: Use the official `orca-agent-sdk` Python template.
+2.  **Define Agent**: Write logic in `agent.py`.
+3.  **Register**: Get an `on_chain_agent_id` via the 0rca Dashboard.
+4.  **Push**: `git push` to your repository.
+5.  **Deploy**: 0rca automatically builds the container, deploys to K8s, and lists it in The POD marketplace.
+
+---
+
+## 5. Technology Stack Summary
+
+| Layer | Technology |
+| :--- | :--- |
+| **Blockchain** | Algorand (PyTeal smart contracts) |
+| **Agent SDK** | Python (`orca-agent-sdk`) |
+| **Orchestration** | Python (FastAPI + LLM Logic) |
+| **Infrastructure** | Kubernetes (DOKS), Docker, Kaniko |
+| **Frontend** | Next.js 15, React 19, Tailwind v4 |
+| **Database** | Supabase (PostgreSQL) |
+
+---
+*This document summarizes the technical architecture for the 0rca Documentation Page.*
