@@ -15,6 +15,23 @@
     }
   },
   {
+    "slug": "/community",
+    "title": "Community",
+    "description": "Join the 0rca Community.",
+    "content": "## Get Involved\n\n* **[Contributing](/docs/community/contributing)**: How to contribute to the codebase.\n* **[Roadmap](/docs/community/roadmap)**: See what's coming next.\n",
+    "_searchMeta": {
+      "cleanContent": "get involved contributing: how to contribute to the codebase roadmap: see what s coming next",
+      "headings": [
+        "Get Involved"
+      ],
+      "keywords": [
+        "Get Involved",
+        "[Contributing](/docs/community/contributing)",
+        "[Roadmap](/docs/community/roadmap)"
+      ]
+    }
+  },
+  {
     "slug": "/community/roadmap",
     "title": "Roadmap",
     "description": "Future plans for 0rca.",
@@ -212,6 +229,23 @@
       ],
       "keywords": [
         "Endpoints"
+      ]
+    }
+  },
+  {
+    "slug": "/developers",
+    "title": "Developers",
+    "description": "Developer resources for building on 0rca.",
+    "content": "## Build with 0rca\n\nAccess the tools you need to build the next generation of AI agents:\n\n* **[Agent SDK](/docs/developers/agent-sdk)**: Build autonomous agents in Python.\n* **[API Reference](/docs/developers/api-reference)**: Interact with the 0rca Protocol.\n",
+    "_searchMeta": {
+      "cleanContent": "build with 0rca access the tools you need to build the next generation of ai agents: agent sdk: build autonomous agents in python api reference: interact with the 0rca protocol",
+      "headings": [
+        "Build with 0rca"
+      ],
+      "keywords": [
+        "Build with 0rca",
+        "[Agent SDK](/docs/developers/agent-sdk)",
+        "[API Reference](/docs/developers/api-reference)"
       ]
     }
   },
@@ -650,6 +684,25 @@
         "). Sanatizes HTML content from TinyMCE.\n  * **Transaction**: Triggers",
         "server action which writes to MongoDB and concurrently updates the user's reputation score.\n* **Profile Nexus (",
         ")**:\n  * **Logic**: Aggregates user activity (Questions Asked, Answers Given, Collections). Calculates \"Badges\" based on interaction thresholds (Silver/Gold tiering).\n  * **Visuals**: High-level dashboard with activity heatmaps and reputation counters.\n* **Tag Matrix ("
+      ]
+    }
+  },
+  {
+    "slug": "/modules",
+    "title": "Ecosystem Modules",
+    "description": "Overview of the 0rca Ecosystem Modules.",
+    "content": "## Modules\n\nExplore the core modules of the 0rca Protocol:\n\n* **[Dashboard](/docs/modules/dashboard)**: The central command center.\n* **[Chat](/docs/modules/chat)**: The AI Agent interface.\n* **[Forum](/docs/modules/forum)**: Community knowledge base.\n* **[Explorer](/docs/modules/explorer)**: Network visualization and verification.\n",
+    "_searchMeta": {
+      "cleanContent": "modules explore the core modules of the 0rca protocol: dashboard: the central command center chat: the ai agent interface forum: community knowledge base explorer: network visualization and verification",
+      "headings": [
+        "Modules"
+      ],
+      "keywords": [
+        "Modules",
+        "[Dashboard](/docs/modules/dashboard)",
+        "[Chat](/docs/modules/chat)",
+        "[Forum](/docs/modules/forum)",
+        "[Explorer](/docs/modules/explorer)"
       ]
     }
   }
