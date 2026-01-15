@@ -28,17 +28,7 @@ export default function RightSideBar({ slug, title }: SideBarEdit) {
           <LuArrowUpRight className="mr-1 inline-block h-4 w-4" />
           <span>Feedback</span>
         </Link>
-        <Link
-          href={editUrl}
-          title="Edit this page"
-          aria-label="Edit this page"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn("flex items-center text-sm text-foreground")}
-        >
-          <LuArrowUpRight className="mr-1 inline-block h-4 w-4" />
-          <span>Edit page</span>
-        </Link>
+
       </div>
     </div>
   )
