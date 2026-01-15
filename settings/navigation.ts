@@ -13,5 +13,5 @@ export const Navigations = [
 ]
 
 export const GitHubLink = {
-  href: "https://github.com/0rca/0rca-documents",
+  href: "https://github.com/0rca-network/0rca-core",
 }

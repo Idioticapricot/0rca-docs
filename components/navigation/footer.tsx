@@ -28,13 +28,13 @@ export function Footer() {
             target="_blank"
           >
             <Image
-              src="/icon.png"
+              src="/0rca-Photoroom.svg"
               alt="0rca Corporation logo"
               title="0rca Corporation logo"
               aria-label="0rca Corporation logo"
               priority={false}
-              width={30}
-              height={30}
+              width={60}
+              height={60}
             />
           </Link>
         </div>
